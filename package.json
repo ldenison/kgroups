@@ -1,0 +1,20 @@
+{
+  "name": "gt-slack-clustering",
+  "version": "1.0.0",
+  "description": "Groups students into Slack channels so they can communicate and work with other students working on the same topics",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.gatech.edu/ldenison6/gt-slack-clustering.git"
+  },
+  "author": "Luke Denison",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.7"
+  }
+}
