@@ -1,0 +1,18 @@
+<top-nav></top-nav>
+
+<div class="container-fluid">
+    <div class="table-responsive col-md-6 col-md-offset-3">
+        <h4>{{course.name}}</h4>
+        <table class="table table-bordered">
+            <tr ng-repeat="t in tasks" ng-class="{success: t.status==='Completed', info: t.status==='In Progress'}" ng-click="updateStatus(t);" style="cursor:pointer;">
+                <td>{{t.title}}</td>
+                <td><em>{{t.dueDate}}</em></td>
+                <td>
+                    <span class="label label-default" ng-show="t.status==='Not Started'"><i class="fa fa-square" ></i> Not Started</span>
+                    <span class="label label-info" ng-show="t.status==='In Progress'"><i class="fa fa-star" ></i> In Progress</span>
+                    <span class="label label-success" ng-show="t.status==='Completed'"><i class="fa fa-check" ></i> Completed</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

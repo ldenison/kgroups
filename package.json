@@ -13,11 +13,22 @@
   "author": "Luke Denison",
   "license": "ISC",
   "dependencies": {
+    "@aoberoi/passport-slack": "^1.0.5",
+    "angular": "^1.6.4",
+    "angular-resource": "^1.6.4",
+    "angular-ui-bootstrap": "^2.5.0",
+    "angular-ui-router": "^1.0.3",
     "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
     "express": "^4.15.3",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.2.1",
+    "jsonwebtoken": "^7.4.1",
     "mongoose": "^4.10.7",
+    "ngstorage": "^0.3.11",
     "node-env-file": "^0.1.8",
     "passport": "^0.3.2",
-    "passport-slack": "0.0.7"
+    "passport-slack-ponycode": "0.0.2",
+    "request": "^2.81.0"
   }
 }

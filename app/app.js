@@ -1,32 +1,154 @@
-c
+var env = require('node-env-file');
+var path = require('path');
+var request = require('request');
+var SlackStrategy = require('passport-slack-ponycode').SlackStrategy;
+var mongoose = require('mongoose');
+var jwt = require('jsonwebtoken');
+var bodyParser = require('body-parser');
+var slack = require('./models/Slack');
 
-var SlackStrategy = require('passport-slack').Strategy;
+var courseCtrl = require('./controllers/CourseController');
+var progressCtrl = require('./controllers/ProgressController');
+var Course = require('./models/Course');
+
+env(__dirname + '/../server.env');
+var SLACK_CLIENT_ID = process.env.SLACK_CLIENT_ID;
+var SLACK_CLIENT_SECRET = process.env.SLACK_CLIENT_SECRET;
+var JWT_SECRET = process.env.JWT_SECRET;
+var PORT = 4390;
+
+mongoose.connect('mongodb://127.0.0.1:27017/kgroups');
+
 var passport = require('passport');
 var express = require('express');
 var app = express();
 
+var User = require('./models/User');
+
 // setup the strategy using defaults
-passport.use(new SlackStrategy({
-        clientID: CLIENT_ID,
-        clientSecret: CLIENT_SECRET
-    }, function (accessToken, refreshToken, profile, done){
-        // optionally persist profile data
-        done(null, profile);
-        }
-));
+passport.use( 'slack', new SlackStrategy({
+    clientID: SLACK_CLIENT_ID,
+    clientSecret:SLACK_CLIENT_SECRET,
+    callbackURL: "/auth/callback"
+}, function( token, tokenSecret, profile, done ){
+
+}));
+
+var apiRoutes = express.Router();
+apiRoutes.use(function(req, res, next) {
+    var token = req.headers['x-access-token'];
+
+    if(token) {
+        jwt.verify(token, JWT_SECRET, function(err, decoded) {
+            if(err) {
+                return res.json({ok: false, message: 'Failed to authenticate token.'});
+            }
+            else {
+                req.decoded = decoded;
+                next();
+            }
+        });
+    }
+    else {
+        return res.status(403).send({
+            ok: false,
+            message: 'No authentication token provided.'
+        });
+    }
+});
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+app.use('/api', apiRoutes);
 
 app.use(passport.initialize());
-app.use(require('body-parser').urlencoded({ extended: true }));
 
-// path to start the OAuth flow
+
+
+
+app.use('/', express.static(path.join(__dirname + '/public')));
+app.use('/lib', express.static(path.join(__dirname + '/../node_modules')));
+
+apiRoutes.get('/me', function(req, res) {
+    res.json(req.decoded._doc);
+});
+
+apiRoutes.post('/course', courseCtrl.create);
+apiRoutes.post('/course/:id', courseCtrl.update);
+apiRoutes.put('/course',courseCtrl.create);
+apiRoutes.get('/course/enrolled',courseCtrl.enrolled);
+apiRoutes.get('/course/:id',courseCtrl.get);
+apiRoutes.get('/course',courseCtrl.index);
+
+
+apiRoutes.get('/progress',progressCtrl.index);
+
 app.get('/auth/slack', passport.authorize('slack'));
+app.get('/auth/slack/callback', function(req, res) {
+    // When a user authorizes an app, a code query parameter is passed on the oAuth endpoint. If that code is not there, we respond with an error message
+    if (!req.query.code) {
+        res.status(500);
+        res.send({"Error": "Looks like we're not getting code."});
+        console.log("Looks like we're not getting code.");
+    } else {
+        // If it's there...
 
-// OAuth callback url
-app.get('/auth/slack/callback',
-    passport.authorize('slack', { failureRedirect: '/login' }),
-    function(req, res) {
-        res.redirect('/')
+        // We'll do a GET call to Slack's `oauth.access` endpoint, passing our app's client ID, client secret, and the code we just got as query parameters.
+        request({
+            url: 'https://slack.com/api/oauth.access', //URL to hit
+            qs: {code: req.query.code, client_id: SLACK_CLIENT_ID, client_secret: SLACK_CLIENT_SECRET}, //Query string data
+            method: 'GET' //Specify the method
+
+        }, function (error, response, body) {
+            if (error) {
+                console.log(error);
+            } else {
+                var json = JSON.parse(body);
+                if(json.ok) {
+
+                    if(json.bot !== undefined) {
+                        var courseId = req.query.state;
+                        console.log(courseId);
+                        Course.findOne({_id:courseId}, function(err, course) {
+                            if(err) res.status(500).json({ok:false});
+                            else {
+                                delete json.ok;
+                                course.slackConfig = json;
+
+                                slack.users.list(course.slackConfig.url, json.access_token, true, function(err, users) {
+                                    if(err) res.status(500).json({ok:false});
+                                    else {
+                                        console.log(users);
+                                        course.members = users;
+                                        course.save(function(err, course) {
+                                            if(err) res.status(500).json({ok:false});
+                                            else res.redirect('/#!/course/'+courseId);
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                    else {
+                        var profile = json.user;
+                        User.findOrCreate(profile, function(err, user) {
+                            if(err) {
+                                res.status(500);
+                                res.send({Error: 'Error locating / creating profile'});
+                            }
+                            else {
+                                var token = jwt.sign(user, JWT_SECRET, {
+                                    expiresIn: '7d'
+                                });
+                                var uri = '/#!/auth/'+token;
+                                res.redirect(uri);
+                            }
+                        });
+                    }
+                }
+            }
+        });
     }
-);
+});
 
 app.listen(PORT);
