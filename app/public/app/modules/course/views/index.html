@@ -1,0 +1,13 @@
+<top-nav></top-nav>
+<div class="container-fluid">
+    <div class="col-md-6 col-md-offset-3">
+        <h4>Current Courses <a ui-sref="courseCreate" class="btn btn-sm btn-primary pull-right" style="margin-bottom:5px;">New</a></h4>
+        <table class="table table-condensed">
+            <tr ng-repeat="c in courses">
+                <td>
+                    <a ui-sref="course({courseId:c._id})">{{c.courseNumber}} - {{c.name}}</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

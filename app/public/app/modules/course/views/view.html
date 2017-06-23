@@ -1,0 +1,45 @@
+<top-nav></top-nav>
+
+<div class="container-fluid">
+    <div class="col-md-10 col-md-offset-2">
+        {{course.slackConfig}}
+        <div ng-show="course.slackConfig">
+            <a href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands,bot&client_id=199576980864.200343140805&state={{course._id}}"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+        </div>
+        <form class="form" ng-submit="saveCourse(course)">
+            <div class="form-group">
+                <label>Course Name</label>
+                <input type="text" class="form-control" placeholder="Course Name" ng-model="course.name">
+            </div>
+            <div class="form-group">
+                <label>Course Number</label>
+                <input type="text" class="form-control" placeholder="Course Number" ng-model="course.courseNumber">
+            </div>
+            <div class="form-group">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Task</th><th>Due</th><th></th>
+                    </tr>
+                    <tr ng-repeat="t in course.tasks">
+                        <td style="padding:0; margin:0;" ng-init="dp_open=false;">
+                            <input ng-model="t.body" ng-focus="dp_open=false;" type="text" class="cell-text-input" style="line-height:40px; width:100%;border:none;font-size:20px;">
+                        </td>
+                        <td class="col-md-2" style="padding:0; margin:0;">
+                            <input ng-model="t.due" ng-click="dp_open=true;" uib-datepicker-popup is-open="dp_open" ng-model="date" type="text" class="cell-text-input" style="line-height:40px; width:100%;border:none;font-size:20px">
+                        </td>
+                        <td style="padding:0;margin:0;line-height:40px;">
+                            <button ng-click="addTask(t)" type="button" style="height:100%;width:45%;background-color:transparent;border:none;border-right:thin solid #DDDDDD;padding:0;margin:0;display:inline-block;">
+                                <i class="fa fa-plus" style="color: #DDDDDD;"></i>
+                            </button>
+                            <button ng-click="removeTask(t)" type="button" style="height:100%;width:45%;background-color:transparent;border:none;padding:0;margin:0;display:inline-block;">
+                                <i class="fa fa-close" style="color: #DDDDDD;"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+</div>
+<pre>{{course.members | json}}</pre>
