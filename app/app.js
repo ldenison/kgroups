@@ -77,6 +77,7 @@ apiRoutes.post('/course/:id', courseCtrl.update);
 apiRoutes.put('/course',courseCtrl.create);
 apiRoutes.get('/course/enrolled',courseCtrl.enrolled);
 apiRoutes.get('/course/:id',courseCtrl.get);
+apiRoutes.get('/course/:id/progress', courseCtrl.progress);
 apiRoutes.get('/course',courseCtrl.index);
 
 

@@ -8,7 +8,7 @@ kgroups.config(function($stateProvider) {
 
     var progressView = {
         name: 'progressView',
-        url: '/report/:reportId',
+        url: '/progress/:courseId',
         templateUrl: 'app/modules/progress/views/view.html',
         controller: 'ProgressController'
     };

@@ -1,4 +1,5 @@
 var Course = require('../models/Course');
+var Progress = require('../models/Progress');
 
 exports.index = function(req, res) {
     Course.find({}, function(err, courses) {
@@ -17,6 +18,28 @@ exports.enrolled = function(req, res) {
         }
         else res.json(courses);
     });
+};
+
+exports.progress = function(req, res) {
+    var courseId = req.params.id;
+    var id = req.decoded._doc._id;
+    var c, p;
+    Course.findOne({_id:courseId}, function(err, course) {
+        if(err) {
+            res.status(500).json({ok:false});
+        }
+        else {
+            c = course;
+            Progress.find({course:courseId, owner:id}, function(err, progress) {
+                if(err) res.status(500).json({ok:false});
+                else {
+                    p = progress;
+                    res.json({course:c, progress:p});
+                }
+            });
+        }
+    });
+
 };
 
 exports.get = function(req, res) {

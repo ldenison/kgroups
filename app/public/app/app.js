@@ -18,6 +18,12 @@ kgroups.run(function($rootScope, $http, $location, $localStorage) {
             $location.path('/login');
         }
     });
+
+    $rootScope.$on('$stateChangeSuccess',
+        function(event, toState, toParams, fromState, fromParams) {
+            $state.current = toState;
+        }
+    );
 });
 
 kgroups.config(function($httpProvider) {

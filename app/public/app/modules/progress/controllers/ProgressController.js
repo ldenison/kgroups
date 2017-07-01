@@ -1,4 +1,16 @@
-var ReportController = function($scope, $stateParams, Report) {
+var ProgressController = function($scope, $stateParams, Progress, Course) {
+    var courseId = $stateParams.courseId;
+    $scope.report = Course.progress({id:courseId});
+
+    $scope.getTaskById = function(tasks, id) {
+          for(var i=0; i<tasks.length; i++) {
+              if(tasks[i]._id === id) {
+                  return tasks[i];
+              }
+          }
+          return {_id:id, status: 'Not Started'};
+    };
+
     $scope.updateStatus = function(task) {
         switch(task.status) {
             case 'Not Started':
@@ -16,5 +28,5 @@ var ReportController = function($scope, $stateParams, Report) {
         }
     };
 };
-ReportController.$inject = ['$scope','$stateParams','Report'];
-kgroups.controller('ReportController',ReportController);
+ProgressController.$inject = ['$scope','$stateParams','Progress','Course'];
+kgroups.controller('ProgressController',ProgressController);

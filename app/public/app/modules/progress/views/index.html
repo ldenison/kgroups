@@ -5,7 +5,7 @@
         <table class="table table-condensed">
             <tr ng-repeat="c in courses">
                 <td>
-                    <a ui-sref="course({courseId:c._id})">{{c.courseNumber}} - {{c.name}}</a>
+                    <a ui-sref="progressView({courseId:c._id})">{{c.courseNumber}} - {{c.name}}</a>
                 </td>
             </tr>
         </table>

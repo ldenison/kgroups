@@ -1,4 +1,5 @@
 kgroups.config(function($stateProvider) {
+
     var courseIndex = {
         name: 'courseIndex',
         url: '/course',
@@ -6,12 +7,6 @@ kgroups.config(function($stateProvider) {
         controller: 'CourseIndexController'
     };
 
-    var course = {
-        name: 'course',
-        url: '/course/:courseId',
-        templateUrl: 'app/modules/course/views/view.html',
-        controller: 'CourseController'
-    };
     var courseCreate = {
         name: 'courseCreate',
         url: '/course/create',
@@ -19,8 +14,39 @@ kgroups.config(function($stateProvider) {
         controller: 'CourseCreateController'
     };
 
+    var courseView = {
+        abstract: true,
+        name: 'course',
+        url: '/course/:courseId',
+        templateUrl: 'app/modules/course/views/template.html'
+    };
+
+    var courseViewTask = {
+        name: 'course.task',
+        url: '/task',
+        templateUrl: 'app/modules/course/views/task.html',
+        controller: 'CourseTaskController'
+    };
+
+    var courseViewMember = {
+        name: 'course.member',
+        url: '/member',
+        templateUrl: 'app/modules/course/views/member.html',
+        controller: 'CourseMemberController'
+    };
+
+    var courseViewConfig = {
+        name: 'course.config',
+        url: '/config',
+        templateUrl: 'app/modules/course/views/config.html',
+        controller: 'CourseController'
+    };
+
     $stateProvider.state(courseCreate);
-    $stateProvider.state(course);
     $stateProvider.state(courseIndex);
 
+    $stateProvider.state(courseView);
+    $stateProvider.state(courseViewTask);
+    $stateProvider.state(courseViewMember);
+    $stateProvider.state(courseViewConfig);
 });

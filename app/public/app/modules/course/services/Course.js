@@ -3,7 +3,8 @@ var Course = function($resource) {
         '/api/course/:id',
         {id:'@_id'},
         {
-            'enrolled': {method: 'GET', isArray:true, url: '/api/course/enrolled'}
+            'enrolled': {method: 'GET', isArray:true, url: '/api/course/enrolled'},
+            'progress': {method: 'GET', url: '/api/course/:id/progress'}
         });
 };
 

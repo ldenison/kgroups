@@ -1,5 +1,6 @@
-var CourseController = function($scope, $stateParams, Course) {
+var CourseTaskController = function($scope, $stateParams, Course) {
     var courseId = $stateParams.courseId;
+    console.log(courseId);
     $scope.course = Course.get({id:courseId});
 
     $scope.addTask = function(task) {
@@ -13,5 +14,5 @@ var CourseController = function($scope, $stateParams, Course) {
     };
 };
 
-CourseController.$inject = ['$scope','$stateParams','Course'];
-kgroups.controller('CourseController', CourseController);
+CourseTaskController.$inject = ['$scope','$stateParams','Course'];
+kgroups.controller('CourseTaskController', CourseTaskController);
