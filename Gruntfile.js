@@ -21,5 +21,7 @@ module.exports = function(grunt) {
     grunt.util._.extend(config, loadConfig('./tasks/config/'));
 
     grunt.initConfig(config);
+
+    grunt.registerTask('build', ['uglify','processhtml','concat','copy']);
 };
 
