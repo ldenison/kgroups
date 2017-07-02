@@ -1,5 +1,26 @@
-<div>
-    <div ng-repeat="m in course.members">
-        {{m.real_name}}
-    </div>
+<div ng-show="course.members.length>0">
+    <h4>Team Members</h4>
+    <table class="table table-bordered">
+        <tr>
+            <th>Slack Name</th><th>Name</th><th>Admin</th><th>Owner</th>
+        </tr>
+        <tr ng-repeat="m in course.members | orderBy: 'name'">
+            <td>
+                <img ng-src="{{m.profile.image_24}}">
+                {{m.name}}
+            </td>
+            <td>{{m.profile.first_name}} {{m.profile.last_name}}</td>
+            <td>
+                <i class="fa fa-check" ng-show="m.is_admin"></i>
+                <i class="fa fa-square-o" ng-show="!m.is_admin"></i>
+            </td>
+            <td>
+                <i class="fa fa-check" ng-show="m.is_owner"></i>
+                <i class="fa fa-square-o" ng-show="!m.is_owner"></i>
+            </td>
+        </tr>
+    </table>
+</div>
+<div ng-show="course.members.length<1">
+    <span class="text-muted">There are no members in this course's team. Check the Config tab and ensure you have added the application to your Slack team.</span>
 </div>
