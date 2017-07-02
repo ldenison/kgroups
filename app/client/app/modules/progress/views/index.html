@@ -8,6 +8,11 @@
                     <a ui-sref="progressView({courseId:c._id})">{{c.courseNumber}} - {{c.name}}</a>
                 </td>
             </tr>
+            <tr ng-show="courses.length<1">
+                <td>
+                    <span class="text-muted">Your Slack account is not a member of any courses using k-groups. Please be sure you are signed in with the correct Slack account.</span>
+                </td>
+            </tr>
         </table>
     </div>
 </div>
