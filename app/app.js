@@ -17,9 +17,10 @@ env(__dirname + '/../server.env');
 var SLACK_CLIENT_ID = process.env.SLACK_CLIENT_ID;
 var SLACK_CLIENT_SECRET = process.env.SLACK_CLIENT_SECRET;
 var JWT_SECRET = process.env.JWT_SECRET;
-var PORT = 4390;
+var DB_CONFIG = process.env.DB_CONFIG;
+var PORT = process.env.PORT;
 
-mongoose.connect('mongodb://127.0.0.1:27017/kgroups');
+mongoose.connect(DB_CONFIG);
 
 var passport = require('passport');
 var express = require('express');
@@ -123,7 +124,7 @@ app.get('/auth/slack/callback', function(req, res) {
                                         course.members = users;
                                         course.save(function(err, course) {
                                             if(err) res.status(500).json({ok:false});
-                                            else res.redirect('/#!/course/'+courseId);
+                                            else res.redirect('/client/#!/course/'+courseId);
                                         });
                                     }
                                 });
@@ -142,7 +143,7 @@ app.get('/auth/slack/callback', function(req, res) {
                                 var token = jwt.sign(user, JWT_SECRET, {
                                     expiresIn: '7d'
                                 });
-                                var uri = '/#!/auth/'+token;
+                                var uri = '/client/#!/auth/'+token;
                                 res.redirect(uri);
                             }
                         });
