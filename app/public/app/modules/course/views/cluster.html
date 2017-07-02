@@ -1,0 +1,13 @@
+<div ng-repeat="c in clusters">
+    === Cluster ===
+    <table class="table table-bordered table-condensed">
+        <tr ng-repeat="u in c">
+            <td>{{u.owner}}</td>
+            <td ng-repeat="t in u.tasks">
+                <i ng-show="t.status==='Not Started'" class="fa fa-square-o"></i>
+                <i ng-show="t.status==='In Progress'" class="fa fa-star"></i>
+                <i ng-show="t.status==='Completed'" class="fa fa-check"></i>
+            </td>
+        </tr>
+    </table>
+</div>

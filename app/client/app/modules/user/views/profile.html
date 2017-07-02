@@ -1,0 +1,31 @@
+<top-nav></top-nav>
+<div class="container-fluid">
+    <img ng-src="{{user.image_72}}">
+    {{user.name}} <{{user.email}}>
+    <div class="col-md-6 col-md-offset-3">
+        <form class="form">
+            <div class="form-group">
+                <label>Name</label>
+                <span class="label label-default">{{user.name}}</span>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <span class="label label-default">{{user.email}}</span>
+            </div>
+            <div class="form-group">
+                <label>Specialization</label>
+                <div class="dropdown">
+                    <button class="btn btn-default" data-toggle="dropdown"><em>Specialization</em></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Computational Perception & Robotics</a></li>
+                        <li><a href="">Computing Systems</a></li>
+                        <li><a href="">Interactive Intelligence</a></li>
+                        <li><a href="">Machine Learning</a></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+

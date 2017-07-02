@@ -10,60 +10,15 @@
     <!-- Bootstrap -->
     <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- <link href="/lib/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" rel="stylesheet"> -->
-
 </head>
-<body ng-app="kgroups">
+<body ng-app="kgroups" ng-strict-di>
 
 <div ui-view></div>
 
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/lib/jquery/dist/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="lib/lib.min.js"></script>
 
-<script src="/lib/angular/angular.min.js"></script>
-<script src="/lib/angular-ui-router/release/angular-ui-router.min.js"></script>
-<script src="/lib/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
-<script src="/lib/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
-<script src="/lib/ngstorage/ngStorage.min.js"></script>
-<script src="/lib/angular-resource/angular-resource.min.js"></script>
-<script src="app/app.js"></script>
-
-<!-- Routes Module -->
-<script src="app/modules/routes/course.js"></script>
-<script src="app/modules/routes/external.js"></script>
-<script src="app/modules/routes/internal.js"></script>
-<script src="app/modules/routes/progress.js"></script>
-
-<!-- Auth Module -->
-<script src="app/modules/auth/controllers/AuthController.js"></script>
-<script src="app/modules/auth/services/AuthService.js"></script>
-<script src="app/modules/auth/services/ResponseObserver.js"></script>
-
-<!-- Nav Module -->
-<script src="app/modules/navs/directives/topNav/topNav.js"></script>
-
-<!-- User Module -->
-<script src="app/modules/user/services/User.js"></script>
-<script src="app/modules/user/controllers/ProfileController.js"></script>
-
-<!-- Course Module -->
-<script src="app/modules/course/directives/courseNav/courseNav.js"></script>
-<script src="app/modules/course/controllers/CourseController.js"></script>
-<script src="app/modules/course/controllers/CourseTaskController.js"></script>
-<script src="app/modules/course/controllers/CourseMemberController.js"></script>
-<script src="app/modules/course/controllers/CourseConfigController.js"></script>
-<script src="app/modules/course/controllers/CourseCreateController.js"></script>
-<script src="app/modules/course/controllers/CourseIndexController.js"></script>
-<script src="app/modules/course/services/Course.js"></script>
-
-<!-- Progress Module -->
-<script src="app/modules/progress/controllers/ProgressController.js"></script>
-<script src="app/modules/progress/controllers/ProgressIndexController.js"></script>
-<script src="app/modules/progress/services/Progress.js"></script>
-
+<script src="kgroups.min.js"></script>
 
 </body>
 </html>

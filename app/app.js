@@ -9,7 +9,9 @@ var slack = require('./models/Slack');
 
 var courseCtrl = require('./controllers/CourseController');
 var progressCtrl = require('./controllers/ProgressController');
+var clusterCtrl = require('./controllers/ClusterController');
 var Course = require('./models/Course');
+var Cluster = require('./helpers/Cluster');
 
 env(__dirname + '/../server.env');
 var SLACK_CLIENT_ID = process.env.SLACK_CLIENT_ID;
@@ -62,11 +64,10 @@ app.use('/api', apiRoutes);
 
 app.use(passport.initialize());
 
-
-
-
 app.use('/', express.static(path.join(__dirname + '/public')));
 app.use('/lib', express.static(path.join(__dirname + '/../node_modules')));
+
+app.use('/client', express.static(path.join(__dirname + '/client')));
 
 apiRoutes.get('/me', function(req, res) {
     res.json(req.decoded._doc);
@@ -77,11 +78,14 @@ apiRoutes.post('/course/:id', courseCtrl.update);
 apiRoutes.put('/course',courseCtrl.create);
 apiRoutes.get('/course/enrolled',courseCtrl.enrolled);
 apiRoutes.get('/course/:id',courseCtrl.get);
-apiRoutes.get('/course/:id/progress', courseCtrl.progress);
 apiRoutes.get('/course',courseCtrl.index);
 
-
 apiRoutes.get('/progress',progressCtrl.index);
+apiRoutes.get('/progress/:courseId',progressCtrl.getByCourseId);
+apiRoutes.post('/progress',progressCtrl.create);
+apiRoutes.post('/progress/:id',progressCtrl.update);
+
+apiRoutes.get('/cluster/:courseId', clusterCtrl.getByCourse);
 
 app.get('/auth/slack', passport.authorize('slack'));
 app.get('/auth/slack/callback', function(req, res) {
@@ -89,7 +93,6 @@ app.get('/auth/slack/callback', function(req, res) {
     if (!req.query.code) {
         res.status(500);
         res.send({"Error": "Looks like we're not getting code."});
-        console.log("Looks like we're not getting code.");
     } else {
         // If it's there...
 
@@ -108,7 +111,6 @@ app.get('/auth/slack/callback', function(req, res) {
 
                     if(json.bot !== undefined) {
                         var courseId = req.query.state;
-                        console.log(courseId);
                         Course.findOne({_id:courseId}, function(err, course) {
                             if(err) res.status(500).json({ok:false});
                             else {
@@ -118,7 +120,6 @@ app.get('/auth/slack/callback', function(req, res) {
                                 slack.users.list(course.slackConfig.url, json.access_token, true, function(err, users) {
                                     if(err) res.status(500).json({ok:false});
                                     else {
-                                        console.log(users);
                                         course.members = users;
                                         course.save(function(err, course) {
                                             if(err) res.status(500).json({ok:false});
