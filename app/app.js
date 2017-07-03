@@ -88,6 +88,7 @@ apiRoutes.post('/progress',progressCtrl.create);
 apiRoutes.post('/progress/:id',progressCtrl.update);
 
 apiRoutes.get('/slack/:courseId/sync',slackCtrl.syncMembership);
+apiRoutes.get('/slack/:courseId/channels',slackCtrl.createCourseChannels);
 
 apiRoutes.get('/cluster/:courseId', clusterCtrl.getByCourse);
 

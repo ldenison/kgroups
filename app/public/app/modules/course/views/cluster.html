@@ -1,8 +1,12 @@
+<button class="btn btn-default" ng-click="createChannels()">Create Channels</button>
 <div ng-repeat="c in clusters">
     === Cluster ===
-    <table class="table table-bordered table-condensed">
+    <table class="table table-bordered table-condensed" ng-if="$parent.members">
         <tr ng-repeat="u in c">
-            <td>{{u.owner}}</td>
+            <td>
+                <img ng-src="{{$parent.$parent.members[u.slack_id].profile.image_24}}">
+                {{$parent.$parent.members[u.slack_id].name}}
+            </td>
             <td ng-repeat="t in u.tasks">
                 <i ng-show="t.status==='Not Started'" class="fa fa-square-o"></i>
                 <i ng-show="t.status==='In Progress'" class="fa fa-star"></i>

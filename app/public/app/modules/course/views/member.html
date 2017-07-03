@@ -8,12 +8,15 @@
     <a href="" ng-click="sync()">Sync Membership</a>
     <table class="table table-bordered">
         <tr>
-            <th>Slack Name</th><th>Name</th><th>Admin</th><th>Owner</th>
+            <th>Slack Name</th><th>ID</th><th>Name</th><th>Admin</th><th>Owner</th>
         </tr>
         <tr ng-repeat="m in course.members | orderBy: 'name'">
             <td>
                 <img ng-src="{{m.profile.image_24}}">
                 {{m.name}}
+            </td>
+            <td>
+                {{m.id}}
             </td>
             <td>{{m.profile.first_name}} {{m.profile.last_name}}</td>
             <td>

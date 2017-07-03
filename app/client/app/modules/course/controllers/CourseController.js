@@ -1,6 +1,13 @@
-var CourseController = function($scope, $stateParams, Course) {
+var CourseController = function($scope, $stateParams, Course, Slack) {
     var courseId = $stateParams.courseId;
-    $scope.course = Course.get({id:courseId});
+    Course.get({id:courseId}).$promise.then(function(course) {
+        $scope.course = course;
+        $scope.members = {};
+        for(var i=0; i<$scope.course.members.length; i++) {
+            $scope.members[$scope.course.members[i].id] = $scope.course.members[i];
+        }
+        console.log($scope.members);
+    });
 
     $scope.clusters = Course.clusters({id:courseId});
 
@@ -18,7 +25,19 @@ var CourseController = function($scope, $stateParams, Course) {
         }
         course.$save();
     };
+
+    $scope.getUserById = function(id) {
+        for(var i=0; i<$scope.course.members.length; i++) {
+            if(id === $scope.course.members._id) {
+                return $scope.course.members;
+            }
+        }
+    };
+
+    $scope.createChannels = function() {
+        Slack.createChannels({courseId:courseId});
+    };
 };
 
-CourseController.$inject = ['$scope','$stateParams','Course'];
+CourseController.$inject = ['$scope','$stateParams','Course','Slack'];
 kgroups.controller('CourseController', CourseController);

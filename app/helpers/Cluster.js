@@ -24,7 +24,6 @@ exports.cluster = function(courseId, cb) {
         else {
             var num_groups;
             var num_students = reports.length;
-            console.log(num_students);
             if(num_students <= PER_GROUP) {
                 num_groups = 1;
             }

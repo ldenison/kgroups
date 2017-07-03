@@ -3,7 +3,8 @@ var Slack = function($resource) {
         '/api/slack/:courseId',
         {courseId:'@courseId'},
         {
-            'syncMembership': {method: 'GET', isArray:false, url: '/api/slack/:courseId/sync'}
+            'syncMembership': {method: 'GET', isArray:false, url: '/api/slack/:courseId/sync'},
+            'createChannels': {method: 'GET', isArray:false, url: '/api/slack/:courseId/channels'}
         });
 };
 
