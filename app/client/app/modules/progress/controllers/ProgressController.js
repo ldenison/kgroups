@@ -1,6 +1,7 @@
 var ProgressController = function($scope, $stateParams, $interval, Progress, Course) {
     var courseId = $stateParams.courseId;
     var needsUpdate = false;
+    $scope.saveState = 'Saved';
 
     var getTaskById = function(id, list) {
         if(list) {
@@ -29,6 +30,7 @@ var ProgressController = function($scope, $stateParams, $interval, Progress, Cou
     });
 
     $scope.updateStatus = function(task) {
+        $scope.saveState = 'Saving...';
         needsUpdate = true;
         switch(task.status) {
             case undefined:
@@ -62,8 +64,9 @@ var ProgressController = function($scope, $stateParams, $interval, Progress, Cou
             if($scope.progress._id === undefined) {
                 $scope.progress.course = $scope.course._id;
             }
-            console.log($scope.progress);
-            $scope.progress.$save();
+            $scope.progress.$save().then(function() {
+                $scope.saveState = 'Saved';
+            });
             needsUpdate = false;
         }
     };

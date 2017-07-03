@@ -6,7 +6,7 @@
         <table class="table table-bordered">
             <tr ng-repeat="t in course.tasks" ng-class="{success: t.status==='Completed', info: t.status==='In Progress'}" ng-click="updateStatus(t);" style="cursor:pointer;">
                 <td>{{t.body}}</td>
-                <td><em>{{t.due}}</em></td>
+                <td><em>{{t.due | date : 'yyyy-MM-dd'}}</em></td>
                 <td>
                     <span class="label label-default" ng-show="!t.status || t.status==='Not Started'"><i class="fa fa-square" ></i> Not Started</span>
                     <span class="label label-info" ng-show="t.status==='In Progress'"><i class="fa fa-star" ></i> In Progress</span>
@@ -14,5 +14,8 @@
                 </td>
             </tr>
         </table>
+    </div>
+    <div class="col-md-1">
+        {{saveState}}
     </div>
 </div>

@@ -1,13 +1,27 @@
 var topNav = function() {
     return {
         templateUrl: 'app/modules/navs/directives/topNav/topNav.html',
-        controller: ['$scope','$location','$localStorage','$http', function($scope, $location, $localStorage, $http) {
+        controller: ['$scope','$state','$location','$localStorage','$http', function($scope, $state, $location, $localStorage, $http) {
+            $scope.page = $state.current.name;
+
+            $scope.$watch(function() {
+                return $state.current.name;
+            }, function(newVal, oldVal) {
+                if(newVal !== oldVal) {
+                    $scope.page = $state.current.name;
+                }
+            });
+
+            $scope.isCourseSubPage = function() {
+                var p = $scope.page;
+                return p === 'courseIndex' || p === 'courseCreate' || p === 'course.task' || p === 'course.member' ||
+                        p === 'course.cluster' || p === 'course.config';
+            };
+
+
             $scope.logout = function() {
-                console.log('logging out');
                 delete $http.defaults.headers.common['x-access-token'];
                 $localStorage.$reset();
-                console.log($localStorage.token);
-                console.log($http.defaults.headers.common['x-access-token']);
                 $location.path('/login');
             };
         }]

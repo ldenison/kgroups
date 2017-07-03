@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var CourseSchema = new mongoose.Schema({
     name: {type: String, required: true},
     courseNumber: {type: String, require:true},
-    slackGroup: {type:Number, require: false},
     tasks: [{order: Number, body: String, due: Date}],
     members: [
         {
@@ -38,6 +37,7 @@ var CourseSchema = new mongoose.Schema({
         }
     ],
     slackConfig: {
+        select: false,
         access_token: {type: String},
         scope: {type: String},
         team_name: {type: String},

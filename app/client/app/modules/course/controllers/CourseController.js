@@ -11,6 +11,11 @@ var CourseController = function($scope, $stateParams, Course) {
     };
 
     $scope.saveCourse = function(course) {
+        for(var i=0; i<course.tasks.length; i++) {
+            if(course.tasks[i].due) {
+                course.tasks[i].due = new Date(course.tasks[i].due).toISOString();
+            }
+        }
         course.$save();
     };
 };

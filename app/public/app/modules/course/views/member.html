@@ -1,5 +1,11 @@
-<div ng-show="course.members.length>0">
+<div ng-show="loading" class="text-center">
+    <span style="line-height: 100px;">
+        <i class="fa fa-spinner fa-spin fa-5x" style="text-align:center"></i>
+    </span>
+</div>
+<div ng-show="course.members.length>0 && !loading">
     <h4>Team Members</h4>
+    <a href="" ng-click="sync()">Sync Membership</a>
     <table class="table table-bordered">
         <tr>
             <th>Slack Name</th><th>Name</th><th>Admin</th><th>Owner</th>

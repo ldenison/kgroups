@@ -1,6 +1,6 @@
 var CourseTaskController = function($scope, $stateParams, Course) {
     var courseId = $stateParams.courseId;
-    console.log(courseId);
+    $scope.saveState = {msg:'Save Changes',state:0};
     $scope.course = Course.get({id:courseId});
 
     $scope.addTask = function(task) {
@@ -10,7 +10,12 @@ var CourseTaskController = function($scope, $stateParams, Course) {
     };
 
     $scope.saveCourse = function(course) {
-        course.$save();
+        $scope.saveState.msg = 'Saving...';
+        $scope.saveState.state = 1;
+        course.$save().then(function() {
+            $scope.saveState.msg = 'Save Changes';
+            $scope.saveState.state = 0;
+        });
     };
 };
 

@@ -10,6 +10,7 @@ var slack = require('./models/Slack');
 var courseCtrl = require('./controllers/CourseController');
 var progressCtrl = require('./controllers/ProgressController');
 var clusterCtrl = require('./controllers/ClusterController');
+var slackCtrl = require('./controllers/SlackController');
 var Course = require('./models/Course');
 var Cluster = require('./helpers/Cluster');
 
@@ -86,6 +87,8 @@ apiRoutes.get('/progress/:courseId',progressCtrl.getByCourseId);
 apiRoutes.post('/progress',progressCtrl.create);
 apiRoutes.post('/progress/:id',progressCtrl.update);
 
+apiRoutes.get('/slack/:courseId/sync',slackCtrl.syncMembership);
+
 apiRoutes.get('/cluster/:courseId', clusterCtrl.getByCourse);
 
 app.get('/auth/slack', passport.authorize('slack'));
@@ -118,7 +121,7 @@ app.get('/auth/slack/callback', function(req, res) {
                                 delete json.ok;
                                 course.slackConfig = json;
 
-                                slack.users.list(course.slackConfig.url, json.access_token, true, function(err, users) {
+                                slack.users.list(json.access_token, true, function(err, users) {
                                     if(err) res.status(500).json({ok:false});
                                     else {
                                         course.members = users;
@@ -143,7 +146,7 @@ app.get('/auth/slack/callback', function(req, res) {
                                 var token = jwt.sign(user, JWT_SECRET, {
                                     expiresIn: '7d'
                                 });
-                                var uri = '/#!/auth/'+token;
+                                var uri = '/client/#!/auth/'+token;
                                 res.redirect(uri);
                             }
                         });

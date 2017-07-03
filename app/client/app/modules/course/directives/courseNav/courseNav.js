@@ -9,7 +9,6 @@ var courseNav = function() {
             }, function(newVal, oldVal) {
                 if(newVal !== oldVal) {
                     $scope.page = $state.current.name;
-                    console.log($scope.page);
                 }
             });
         }]

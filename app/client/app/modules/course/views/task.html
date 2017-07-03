@@ -17,7 +17,7 @@
                     <input ng-model="t.body" ng-focus="dp_open=false;" type="text" class="cell-text-input" style="line-height:40px; width:100%;border:none;font-size:20px;">
                 </td>
                 <td class="col-md-2" style="padding:0; margin:0;">
-                    <input ng-model="t.due" ng-click="dp_open=true;" uib-datepicker-popup is-open="dp_open" ng-model="date" type="text" class="cell-text-input" style="line-height:40px; width:100%;border:none;font-size:20px">
+                    <input ng-model="t.due" ng-click="dp_open=true;" uib-datepicker-popup is-open="dp_open" ng-model="date" type="text" class="cell-text-input" style="line-height:40px; width:100%;border:none;font-size:20px" placeholder="{{t.due | date : 'yyyy-MM-dd'}}">
                 </td>
                 <td style="padding:0;margin:0;line-height:40px;">
                     <button ng-click="addTask(t)" type="button" style="height:100%;width:45%;background-color:transparent;border:none;border-right:thin solid #DDDDDD;padding:0;margin:0;display:inline-block;">
@@ -30,5 +30,5 @@
             </tr>
         </table>
     </div>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <button type="submit" class="btn" ng-class="{'disabled btn-default': saveState.state === 1, 'btn-primary':saveState.state === 0}">{{saveState.msg}}</button>
 </form>
