@@ -146,7 +146,7 @@ app.get('/auth/slack/callback', function(req, res) {
                                 var token = jwt.sign(user, JWT_SECRET, {
                                     expiresIn: '7d'
                                 });
-                                var uri = '/client/#!/auth/'+token;
+                                var uri = '/#!/auth/'+token;
                                 res.redirect(uri);
                             }
                         });
