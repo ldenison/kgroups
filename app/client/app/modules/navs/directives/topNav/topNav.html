@@ -18,6 +18,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ng-class="{active: isCourseSubPage()}"><a ui-sref="courseIndex">Manage Courses</a></li>
+                <li ng-class="{active: page==='admin'}"><a ui-sref="admin">Admin</a></li>
                 <li><a href="" ng-click="logout()">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->

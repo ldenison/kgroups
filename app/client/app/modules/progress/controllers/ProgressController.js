@@ -20,7 +20,6 @@ var ProgressController = function($scope, $stateParams, $interval, Progress, Cou
             $scope.progress = progress;
             for(var i=0; i<course.tasks.length; i++) {
                 var t = getTaskById(course.tasks[i]._id, progress.tasks);
-                console.log(t);
                 if(t) {
                     course.tasks[i].status = t.status;
                 }

@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
+var Slack = require('./Slack');
 
 var CourseSchema = new mongoose.Schema({
     name: {type: String, required: true},
     courseNumber: {type: String, require:true},
+    lastMemberSync: {type: Date},
     tasks: [{order: Number, body: String, due: Date}],
     members: [
         {
@@ -54,5 +56,26 @@ var CourseSchema = new mongoose.Schema({
     }
 });
 var Course = mongoose.model('Course', CourseSchema);
+
+Course.updateMembership = function(id, cb) {
+    Course.findOne({_id:id}, function(err, course) {
+        if(err) cb(err);
+        else {
+            Slack.users.list(course.slackConfig.access_token, false, function(err, members) {
+                if(err) cb(err);
+                else {
+                    course.members = members;
+                    course.lastMemberSync = new Date();
+                    course.save(function(err, course) {
+                        if(err) cb(err);
+                        else {
+                            cb(undefined, course);
+                        }
+                    });
+                }
+            });
+        }
+    });
+};
 
 module.exports = Course;

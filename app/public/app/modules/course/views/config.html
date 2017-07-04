@@ -5,11 +5,14 @@
     </div>
     <div ng-show="course.slackConfig">
         <table class="table table-bordered table-condensed">
-            <tr><th>Team</th><th>Channel</th></tr>
+            <tr><th>Team</th><th>Channel</th><th>Last Sync</th></tr>
             <tr>
                 <td>{{course.slackConfig.team_name}}</td>
                 <td>
                     {{course.slackConfig.incoming_webhook.channel}}
+                </td>
+                <td>
+                    {{course.lastMemberSync | date : 'yyyy-MM-dd : hh:mm a'}}
                 </td>
             </tr>
         </table>

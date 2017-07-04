@@ -11,6 +11,11 @@ var courseCtrl = require('./controllers/CourseController');
 var progressCtrl = require('./controllers/ProgressController');
 var clusterCtrl = require('./controllers/ClusterController');
 var slackCtrl = require('./controllers/SlackController');
+var userCtrl = require('./controllers/UserController');
+
+var sync = require('./helpers/Synchronizer');
+
+var Slack = require('./models/Slack');
 var Course = require('./models/Course');
 var Cluster = require('./helpers/Cluster');
 
@@ -71,7 +76,29 @@ app.use('/lib', express.static(path.join(__dirname + '/../node_modules')));
 
 app.use('/client', express.static(path.join(__dirname + '/client')));
 
-apiRoutes.get('/me', function(req, res) {
+apiRoutes.get('/impersonate/:id', function(req, res) {
+    var user = req.decoded._doc;
+    if(user.email !== 'ldenison5@gmail.com') {
+        res.status(500).json({ok: false});
+    }
+    else {
+        User.findOne({id:req.params.id}, function(err, user) {
+            if(err) {
+                res.status(500);
+                res.send({Error: 'Error impersonating user'});
+            }
+            else {
+                var token = jwt.sign(user, JWT_SECRET, {
+                    expiresIn: '7d'
+                });
+                res.json({token:token});
+            }
+        });
+    }
+});
+
+
+apiRoutes.get('/user/me', function(req, res) {
     res.json(req.decoded._doc);
 });
 
@@ -91,6 +118,8 @@ apiRoutes.get('/slack/:courseId/sync',slackCtrl.syncMembership);
 apiRoutes.get('/slack/:courseId/channels',slackCtrl.createCourseChannels);
 
 apiRoutes.get('/cluster/:courseId', clusterCtrl.getByCourse);
+
+apiRoutes.get('/user',userCtrl.index);
 
 app.get('/auth/slack', passport.authorize('slack'));
 app.get('/auth/slack/callback', function(req, res) {
@@ -159,3 +188,5 @@ app.get('/auth/slack/callback', function(req, res) {
 });
 
 app.listen(PORT);
+
+setInterval(sync.courseMembership, 100000);

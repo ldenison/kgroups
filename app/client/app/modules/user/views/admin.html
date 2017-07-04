@@ -1,0 +1,21 @@
+<top-nav></top-nav>
+<div class="col-md-10 col-md-offset-1">
+    <h4>Users</h4>
+    <table class="table table-bordered">
+        <tr>
+            <th></th>
+            <th>Slack ID</th>
+            <th>Email</th>
+        </tr>
+        <tr ng-repeat="u in users">
+            <td>
+                <img ng-src="{{u.image_24}}">
+            </td>
+            <td>
+                <a ng-click="impersonate(u.id);" href="">impersonate</a>
+            </td>
+            <td>{{u.id}}</td>
+            <td>{{u.email}}</td>
+        </tr>
+    </table>
+</div>

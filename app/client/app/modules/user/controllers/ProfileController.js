@@ -1,8 +1,6 @@
-var ProfileController = function($scope, User, $localStorage) {
-    //delete $localStorage.token;
-    console.log($localStorage.token);
-    $scope.user = User.get();
+var ProfileController = function($scope, User) {
+    $scope.user = User.me();
 };
 
-ProfileController.$inject = ['$scope', 'User','$localStorage'];
+ProfileController.$inject = ['$scope', 'User'];
 kgroups.controller('ProfileController', ProfileController);

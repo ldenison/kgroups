@@ -35,8 +35,10 @@
     "ngstorage": "^0.3.11",
     "node-env-file": "^0.1.8",
     "node-kmeans": "^1.1.0",
+    "noogger": "^0.1.7",
     "passport": "^0.3.2",
     "passport-slack-ponycode": "0.0.2",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "winston": "^2.3.1"
   }
 }

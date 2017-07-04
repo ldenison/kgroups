@@ -1,19 +1,23 @@
-<button class="btn btn-default" ng-click="createChannels()">Create Channels</button>
-<div ng-repeat="c in clusters">
-    === Cluster ===
-    <table class="table table-bordered table-condensed" ng-if="$parent.members">
-        <tr ng-repeat="u in c">
-            <td>
-                <img ng-src="{{$parent.$parent.members[u.slack_id].profile.image_24}}">
-                {{$parent.$parent.members[u.slack_id].name}}
-            </td>
-            <td ng-repeat="t in u.tasks">
-                <i ng-show="t.status==='Not Started'" class="fa fa-square-o"></i>
-                <i ng-show="t.status==='In Progress'" class="fa fa-star"></i>
-                <i ng-show="t.status==='Completed'" class="fa fa-check"></i>
-            </td>
-        </tr>
-    </table>
+<button class="btn btn-default" ng-click="createChannels()" style="margin-bottom:15px;">Create Channels</button>
+<div class="panel panel-default" ng-repeat="c in clusters">
+    <div class="panel-heading">
+        <h4 class="panel-title">Cluster</h4>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-condensed" ng-if="$parent.members">
+            <tr ng-repeat="u in c">
+                <td>
+                    <img ng-src="{{$parent.$parent.members[u.slack_id].profile.image_24}}">
+                    {{$parent.$parent.members[u.slack_id].name}}
+                </td>
+                <td ng-repeat="t in u.tasks">
+                    <i ng-show="t.status==='Not Started'" class="fa fa-square-o"></i>
+                    <i ng-show="t.status==='In Progress'" class="fa fa-star"></i>
+                    <i ng-show="t.status==='Completed'" class="fa fa-check"></i>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 <div ng-show="clusters.length<1">
     <span class="text-muted">There are currently no clusters for your team. Team members must fill out their course progress in order for clusters to begin forming.</span>

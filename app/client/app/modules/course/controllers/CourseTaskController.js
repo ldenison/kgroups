@@ -9,6 +9,10 @@ var CourseTaskController = function($scope, $stateParams, Course) {
         $scope.course.tasks.join();
     };
 
+    $scope.removeTask = function(task) {
+        $scope.course.tasks.splice($scope.course.tasks.indexOf(task), 1);
+    };
+
     $scope.saveCourse = function(course) {
         $scope.saveState.msg = 'Saving...';
         $scope.saveState.state = 1;

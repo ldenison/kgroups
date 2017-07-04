@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var log = require('noogger');
 
 var UserSchema = new mongoose.Schema({
     name: {type: String, required: true},
@@ -14,11 +15,10 @@ var UserSchema = new mongoose.Schema({
 var User = mongoose.model('User', UserSchema);
 
 User.findOrCreate = function(profile, cb) {
-    console.log(profile.id);
     User.findOne({id: profile.id}).exec(function(err, user) {
         if(err) return cb(err);
         else if(user){
-            console.log('user found');
+            log.info('User logged in: ' + user.email);
             return cb(null, user);
         }
         else {
