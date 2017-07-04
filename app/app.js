@@ -157,7 +157,7 @@ app.get('/auth/slack/callback', function(req, res) {
                                         course.members = users;
                                         course.save(function(err, course) {
                                             if(err) res.status(500).json({ok:false});
-                                            else res.redirect('/client/#!/course/'+courseId);
+                                            else res.redirect('/#!/course/'+courseId);
                                         });
                                     }
                                 });
@@ -176,7 +176,7 @@ app.get('/auth/slack/callback', function(req, res) {
                                 var token = jwt.sign(user, JWT_SECRET, {
                                     expiresIn: '7d'
                                 });
-                                var uri = '/client/#!/auth/'+token;
+                                var uri = '/#!/auth/'+token;
                                 res.redirect(uri);
                             }
                         });
