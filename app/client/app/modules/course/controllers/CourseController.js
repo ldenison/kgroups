@@ -6,7 +6,6 @@ var CourseController = function($scope, $stateParams, Course, Slack) {
         for(var i=0; i<$scope.course.members.length; i++) {
             $scope.members[$scope.course.members[i].id] = $scope.course.members[i];
         }
-        console.log($scope.members);
     });
 
     $scope.clusters = Course.clusters({id:courseId});
