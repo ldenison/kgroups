@@ -5,13 +5,6 @@ var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
 var slack = require('./models/Slack');
-var https = require('https');
-var fs = require('fs');
-
-var https_options = {
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
-};
 
 var courseCtrl = require('./controllers/CourseController');
 var progressCtrl = require('./controllers/ProgressController');
@@ -188,7 +181,4 @@ app.get('/auth/slack/callback', function(req, res) {
 });
 
 app.listen(PORT);
-
-https.createServer(https_options, app).listen(443);
-
 setInterval(sync.courseMembership, 100000);
