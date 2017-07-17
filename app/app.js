@@ -1,7 +1,6 @@
 var env = require('node-env-file');
 var path = require('path');
 var request = require('request');
-var SlackStrategy = require('passport-slack-ponycode').SlackStrategy;
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
@@ -40,15 +39,6 @@ var express = require('express');
 var app = express();
 
 var User = require('./models/User');
-
-// setup the strategy using defaults
-passport.use( 'slack', new SlackStrategy({
-    clientID: SLACK_CLIENT_ID,
-    clientSecret:SLACK_CLIENT_SECRET,
-    callbackURL: "/auth/callback"
-}, function( token, tokenSecret, profile, done ){
-
-}));
 
 var apiRoutes = express.Router();
 apiRoutes.use(function(req, res, next) {

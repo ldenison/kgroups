@@ -13,7 +13,6 @@
   "author": "Luke Denison",
   "license": "ISC",
   "dependencies": {
-    "@aoberoi/passport-slack": "^1.0.5",
     "angular": "^1.6.4",
     "angular-resource": "^1.6.4",
     "angular-ui-bootstrap": "^2.5.0",
@@ -37,7 +36,6 @@
     "node-kmeans": "^1.1.0",
     "noogger": "^0.1.7",
     "passport": "^0.3.2",
-    "passport-slack-ponycode": "0.0.2",
     "request": "^2.81.0",
     "winston": "^2.3.1"
   }
