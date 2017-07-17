@@ -28,7 +28,8 @@ K Groups uses the Slack API for a variety of features, so if you want to host yo
 
 You will also have to specify OAuth redirect URL's for your application. The REST API OAuth callback route provided by kgroups is /auth/slack/callback (e.g. localhost:4390/auth/slack/callback). Keep in mind that Slack does not allow callbacks URI's that are not public so you will need to either host your instance on the web or do something like in [this article about using ngrok to develop locally for Slack OAuth](https://api.slack.com/tutorials/tunneling-with-ngrok).
 
-Once you have your Slack application all set up, proceed with installing the kgroups application.
+### Database
+K Groups requires a [MongoDB database](https://www.mongodb.com/).
 
 ### Installing K Groups
 To install the application, copy this repo and run the following command:

@@ -1,13 +1,7 @@
 kgroups.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-    var about = {
-        name: 'about',
-        url: '/',
-        templateUrl: 'app/modules/external/views/about.html'
-    };
-
     var login = {
         name: 'login',
-        url: '/login',
+        url: '/',
         templateUrl: 'app/modules/external/views/login.html'
     };
 
@@ -17,7 +11,6 @@ kgroups.config(['$stateProvider','$urlRouterProvider', function($stateProvider, 
         templateUrl: 'app/modules/external/views/signin-failed.html'
     };
 
-    $stateProvider.state(about);
     $stateProvider.state(login);
     $stateProvider.state(sigin_failed);
 
