@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var log = require('noogger');
 
 var UserSchema = new mongoose.Schema({
+    is_admin: {type: Boolean, default: false},
+    is_instructor: {type: Boolean, default: false},
     name: {type: String, required: true},
     id: {type: String, unique: true, required: true},
     email: {type: String, required: true},

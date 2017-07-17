@@ -6,6 +6,13 @@ var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
 var slack = require('./models/Slack');
+var https = require('https');
+var fs = require('fs');
+
+var https_options = {
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+};
 
 var courseCtrl = require('./controllers/CourseController');
 var progressCtrl = require('./controllers/ProgressController');
@@ -106,6 +113,7 @@ apiRoutes.post('/course', courseCtrl.create);
 apiRoutes.post('/course/:id', courseCtrl.update);
 apiRoutes.put('/course',courseCtrl.create);
 apiRoutes.get('/course/enrolled',courseCtrl.enrolled);
+apiRoutes.get('/course/manages', courseCtrl.manages);
 apiRoutes.get('/course/:id',courseCtrl.get);
 apiRoutes.get('/course',courseCtrl.index);
 
@@ -120,6 +128,7 @@ apiRoutes.get('/slack/:courseId/channels',slackCtrl.createCourseChannels);
 apiRoutes.get('/cluster/:courseId', clusterCtrl.getByCourse);
 
 apiRoutes.get('/user',userCtrl.index);
+apiRoutes.post('/user/:id', userCtrl.update);
 
 app.get('/auth/slack', passport.authorize('slack'));
 app.get('/auth/slack/callback', function(req, res) {
@@ -176,7 +185,8 @@ app.get('/auth/slack/callback', function(req, res) {
                                 var token = jwt.sign(user, JWT_SECRET, {
                                     expiresIn: '7d'
                                 });
-                                var uri = '/#!/auth/'+token;
+                                var uri = '/client/#!/auth/'+token+'/'+user.is_admin+'/'+user.is_instructor;
+                                console.log(uri);
                                 res.redirect(uri);
                             }
                         });
@@ -188,5 +198,7 @@ app.get('/auth/slack/callback', function(req, res) {
 });
 
 app.listen(PORT);
+
+https.createServer(https_options, app).listen(443);
 
 setInterval(sync.courseMembership, 100000);

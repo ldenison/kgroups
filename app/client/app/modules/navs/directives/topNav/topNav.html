@@ -17,8 +17,8 @@
                 <li ng-class="{active: page==='profile'}"><a ui-sref="profile">Profile </a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li ng-class="{active: isCourseSubPage()}"><a ui-sref="courseIndex">Manage Courses</a></li>
-                <li ng-class="{active: page==='admin'}"><a ui-sref="admin">Admin</a></li>
+                <li ng-class="{active: isCourseSubPage()}" ng-show="is_instructor"><a ui-sref="courseIndex">Manage Courses</a></li>
+                <li ng-class="{active: page==='admin'}" ng-show="is_admin"><a ui-sref="admin">Admin</a></li>
                 <li><a href="" ng-click="logout()">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->

@@ -4,8 +4,11 @@
     <table class="table table-bordered">
         <tr>
             <th></th>
+            <th></th>
             <th>Slack ID</th>
             <th>Email</th>
+            <th>Instructor</th>
+            <th>Admin</th>
         </tr>
         <tr ng-repeat="u in users">
             <td>
@@ -16,6 +19,22 @@
             </td>
             <td>{{u.id}}</td>
             <td>{{u.email}}</td>
+            <td>
+                <button class="btn btn-sm btn-default" ng-click="u.is_instructor=true;u.$save();" ng-show="!u.is_instructor">
+                    <span class="fa fa-square-o"></span>
+                </button>
+                <button class="btn btn-sm btn-default" ng-click="u.is_instructor=false;u.$save();" ng-show="u.is_instructor">
+                    <span class="fa fa-check-square-o"></span>
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-sm btn-default" ng-click="u.is_admin=true;u.$save();" ng-show="!u.is_admin">
+                    <span class="fa fa-square-o"></span>
+                </button>
+                <button class="btn btn-sm btn-default" ng-click="u.is_admin=false;u.$save();" ng-show="u.is_admin">
+                    <span class="fa fa-check-square-o"></span>
+                </button>
+            </td>
         </tr>
     </table>
 </div>

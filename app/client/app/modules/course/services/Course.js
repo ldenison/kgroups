@@ -4,6 +4,7 @@ var Course = function($resource) {
         {id:'@_id'},
         {
             'enrolled': {method: 'GET', isArray:true, url: '/api/course/enrolled'},
+            'manages': {method: 'GET', isArray:true, url: '/api/course/manages'},
             'clusters': {method: 'GET', isArray: true, url: '/api/cluster/:id'}
         });
 };

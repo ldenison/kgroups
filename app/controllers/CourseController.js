@@ -19,6 +19,16 @@ exports.enrolled = function(req, res) {
     });
 };
 
+exports.manages = function(req, res) {
+    var id = req.decoded._doc.id;
+    Course.find({$and: [{'members.id': id}, {'members.is_owner': true}]}, function(err, courses) {
+        if(err) {
+            res.status(500).json({ok:false});
+        }
+        else res.json(courses);
+    });
+};
+
 exports.get = function(req, res) {
     var id = req.params.id;
     Course.findOne({_id:id}, function(err, course) {

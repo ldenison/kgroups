@@ -4,6 +4,11 @@ var topNav = function() {
         controller: ['$scope','$state','$location','$localStorage','$http', function($scope, $state, $location, $localStorage, $http) {
             $scope.page = $state.current.name;
 
+            $scope.is_admin = $localStorage.is_admin;
+            $scope.is_instructor = $localStorage.is_instructor;
+
+            console.log($scope.is_instructor);
+
             $scope.$watch(function() {
                 return $state.current.name;
             }, function(newVal, oldVal) {

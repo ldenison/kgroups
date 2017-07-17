@@ -8,7 +8,7 @@ kgroups.config(['$stateProvider', function($stateProvider) {
 
     var authed = {
         name: 'authed',
-        url: '/auth/:token',
+        url: '/auth/:token/:admin/:instructor',
         controller: 'AuthController'
     };
 
