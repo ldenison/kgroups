@@ -51,7 +51,7 @@ PORT=4390
 - SLACK_CLIENT_ID : this is provided by Slack when you create the associated slack application.
 - SLACK_CLIENT_SECRET : this is also provided by Slack when you create your app.
 - JWT_SECRET : secret key for generating json web tokens (for authentication). See https://jwt.io/introduction/
-- DB_CONFIG : this is used for connecting to your database. Currently this only support mongoose connection strings.
+- DB_CONFIG : this is used for connecting to your database. Currently this only supports mongoose connection strings.
 - PORT : the port on which you would like the server to run.
 
 After configuring these variables run the following command:
@@ -59,7 +59,7 @@ After configuring these variables run the following command:
 ```
 node app/app.js
 ```
-The server will begin listening on the configured port. To access the application, open it up in a browser. Accessing /client will provide you with an unoptimized client application. Navigating to the root will provide you with the built client. You can build a new client from source by issuing the following command.
+The server will begin listening on the configured port. To access the application, open it up in a browser. Accessing /client will provide you with an un-built client application, generally useful for coding / testing. Navigating to the root will provide you with the built client. You can build a new client from source by issuing the following command.
 
 ```
 grunt build
