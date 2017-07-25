@@ -1,7 +1,11 @@
 var CourseTaskController = function($scope, $stateParams, Course) {
     var courseId = $stateParams.courseId;
     $scope.saveState = {msg:'Save Changes',state:0};
-    $scope.course = Course.get({id:courseId});
+    $scope.loading = true;
+    $scope.course = Course.get({id:courseId}).$promise.then(function(res) {
+        $scope.loading = false;
+        $scope.course = res;
+    });
 
     $scope.addTask = function(task) {
         $scope.course.tasks.splice($scope.course.tasks.indexOf(task)+1,0, {});

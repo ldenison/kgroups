@@ -1,4 +1,4 @@
-var CourseCreateController = function($scope, Course) {
+var CourseCreateController = function($scope, $location, Course) {
     $scope.tasks = [{}];
 
     $scope.date = null;
@@ -13,10 +13,11 @@ var CourseCreateController = function($scope, Course) {
         form.tasks = $scope.tasks;
         var c = new Course(form);
         c.$save(function(c) {
-            console.log(c);
+            var id = c._id;
+            $location.path('/course/'+id+'/task');
         });
     };
 };
 
-CourseCreateController.$inject = ['$scope','Course'];
+CourseCreateController.$inject = ['$scope','$location','Course'];
 kgroups.controller('CourseCreateController', CourseCreateController);

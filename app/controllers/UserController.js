@@ -8,7 +8,7 @@ exports.index = function(req, res) {
 
 exports.update = function(req, res) {
     var id = req.params.id;
-    User.findOneAndUpdate({_id: id}, req.body, function(err, user) {
+    User.findOneAndUpdate({_id: id}, req.body, {new: true}, function(err, user) {
         if(err) res.status(500).json({ok:false});
         else res.json(user);
     });

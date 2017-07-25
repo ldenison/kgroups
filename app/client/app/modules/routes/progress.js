@@ -2,7 +2,7 @@ kgroups.config(['$stateProvider', function($stateProvider) {
     var progressIndex = {
         name: 'progressIndex',
         url: '/progress',
-        templateUrl: '/app/modules/progress/views/index.html',
+        templateUrl: 'app/modules/progress/views/index.html',
         controller: 'ProgressIndexController'
     };
 

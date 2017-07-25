@@ -149,7 +149,7 @@ app.get('/auth/slack/callback', function(req, res) {
                                         course.members = users;
                                         course.save(function(err, course) {
                                             if(err) res.status(500).json({ok:false});
-                                            else res.redirect('/#!/course/'+courseId);
+                                            else res.redirect('/#!/course/'+courseId+'/member');
                                         });
                                     }
                                 });
@@ -169,7 +169,6 @@ app.get('/auth/slack/callback', function(req, res) {
                                     expiresIn: '7d'
                                 });
                                 var uri = '/#!/auth/'+token+'/'+user.is_admin+'/'+user.is_instructor;
-                                console.log(uri);
                                 res.redirect(uri);
                             }
                         });

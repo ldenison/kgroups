@@ -1,6 +1,9 @@
-var ProgressIndexController = function($scope, Progress, Course) {
-    $scope.reports = Progress.query();
-    $scope.courses = Course.enrolled();
+var ProgressIndexController = function($scope, Course) {
+    $scope.loading = true;
+    $scope.courses = Course.enrolled().$promise.then(function(res) {
+        $scope.courses = res;
+        $scope.loading = false;
+    });
 };
-ProgressIndexController.$inject = ['$scope', 'Progress','Course'];
+ProgressIndexController.$inject = ['$scope', 'Course'];
 kgroups.controller('ProgressIndexController', ProgressIndexController);
