@@ -68,10 +68,12 @@ app.use('/client', express.static(path.join(__dirname + '/client')));
 
 apiRoutes.get('/impersonate/:id', function(req, res) {
     var user = req.decoded._doc;
+    /*
     if(user.email !== 'ldenison5@gmail.com') {
         res.status(500).json({ok: false});
     }
     else {
+    */
         User.findOne({id:req.params.id}, function(err, user) {
             if(err) {
                 res.status(500);
@@ -84,7 +86,7 @@ apiRoutes.get('/impersonate/:id', function(req, res) {
                 res.json({token:token});
             }
         });
-    }
+    //}
 });
 
 

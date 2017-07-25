@@ -2,15 +2,15 @@ var km = require('node-kmeans');
 var Course = require('../models/Course');
 var Progress = require('../models/Progress');
 var User = require('../models/User');
-var PER_GROUP = 2;
+var PER_GROUP = 7;
 
 var transform = function(report) {
     var vect = [];
     for(var i=0; i<report.tasks.length; i++) {
         var t = report.tasks[i];
         if(t.status === 'Not Started') vect.push(0.0);
-        if(t.status === 'In Progress') vect.push(1.0);
-        if(t.status === 'Completed') vect.push(2.0);
+        if(t.status === 'In Progress') vect.push(5.0);
+        if(t.status === 'Completed') vect.push(3.0);
     }
     return vect;
 };
