@@ -2,7 +2,7 @@ var km = require('node-kmeans');
 var Course = require('../models/Course');
 var Progress = require('../models/Progress');
 var User = require('../models/User');
-var PER_GROUP = 7;
+var PER_GROUP = 5;
 
 var transform = function(report) {
     var vect = [];
