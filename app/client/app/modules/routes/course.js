@@ -46,7 +46,7 @@ kgroups.config(['$stateProvider', function($stateProvider) {
         name: 'course.cluster',
         url: '/cluster',
         templateUrl: 'app/modules/course/views/cluster.html',
-        controller: 'CourseController'
+        controller: 'CourseClusterController'
     };
 
     $stateProvider.state(courseCreate);
