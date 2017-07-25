@@ -9,7 +9,7 @@ var transform = function(report) {
     for(var i=0; i<report.tasks.length; i++) {
         var t = report.tasks[i];
         if(t.status === 'Not Started') vect.push(0.0);
-        if(t.status === 'In Progress') vect.push(20.0);
+        if(t.status === 'In Progress') vect.push(10.0);
         if(t.status === 'Completed') vect.push(5.0);
     }
     return vect;
