@@ -115,7 +115,6 @@ apiRoutes.get('/cluster/:courseId', clusterCtrl.getByCourse);
 apiRoutes.get('/user',userCtrl.index);
 apiRoutes.post('/user/:id', userCtrl.update);
 
-app.get('/auth/slack', passport.authorize('slack'));
 app.get('/auth/slack/callback', function(req, res) {
     // When a user authorizes an app, a code query parameter is passed on the oAuth endpoint. If that code is not there, we respond with an error message
     if (!req.query.code) {

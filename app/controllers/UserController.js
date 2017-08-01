@@ -15,13 +15,9 @@ exports.update = function(req, res) {
 };
 
 exports.get = function(request, response) {
-
-};
-
-exports.create = function(request, response) {
-
-};
-
-exports.delete = function(request, response) {
-
+    var id = req.params.id;
+    User.findOne({_id:id}, function(err, user) {
+        if(err) res.status(500).json({ok:false});
+        else res.json(user);
+    });
 };

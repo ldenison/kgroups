@@ -5,7 +5,6 @@ var Cluster = require('../helpers/Cluster');
 
 exports.syncMembership = function(req, res) {
     var courseId = req.params.courseId;
-
     Course.findOne({_id:courseId}, function(err, course) {
         if(err) res.status(500).json({ok:false});
         if(!course.slackConfig) res.status(500).json({ok:false});
